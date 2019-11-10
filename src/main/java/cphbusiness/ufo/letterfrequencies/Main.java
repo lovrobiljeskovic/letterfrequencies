@@ -4,6 +4,11 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
+import java.io.StringReader;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -19,16 +24,21 @@ import static java.util.stream.Collectors.toMap;
  */
 public class Main {
 
-    public static void main(String[] args) throws FileNotFoundException, IOException {
-        for (int i = 0; i < 5; i++) {
-            String fileName = "/home/lovro/Desktop/FoundationSeries.txt";
-            Reader reader = new FileReader(fileName);
-            Map<Character, Long> freq = new HashMap<>(255);
+    public static void main(String[] args) throws FileNotFoundException, IOException, URISyntaxException {
+        Path path = Paths.get(Main.class.getClassLoader().getResource("FoundationSeries.txt").toURI());
+        //String content = new String(Files.readAllBytes(path));
+        //Reader reader = new StringReader(content);
+        Map<Character, Long> freq;
+        
+        for (int i = 0; i < 10_000; i++) {
             long startTime = System.nanoTime();
+            
+            freq = new HashMap<>();
+            Reader reader = new FileReader(path.toString());
             tallyChars(reader, freq);
+            
             long timeElapsed = System.nanoTime() - startTime;
             System.out.print(timeElapsed / 1000000 + ",");
-//            print_tally(freq);
         }
     }
 
