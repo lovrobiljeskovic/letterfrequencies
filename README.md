@@ -23,7 +23,8 @@ for (int i = 0; i < 10_000; i++) {
     
     long timeElapsed = System.nanoTime() - startTime;
     System.out.print(timeElapsed / 1000000 + ",");
-}```
+}
+```
 
 ### Initial
 
